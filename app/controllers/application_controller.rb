@@ -29,4 +29,20 @@ class ApplicationController < ActionController::Base
     }
     cookies[:cart]
   end
+
+  def line_items
+    @line_items ||= Product
+    .select("products.id, products.image, products.name, products.description, line_items.quantity, products.price_cents, orders.email")
+    .joins("JOIN line_items ON line_items.product_id = products.id")
+    .joins("JOIN orders ON order_id = orders.id")
+    .where("line_items.order_id = #{@order.id}")
+    .map {|product| { product:product } }
+  end
+  helper_method :line_items
+
+  def order_subtotal_cents
+    line_items.map {|entry| entry[:product].price_cents * entry[:product].quantity}.sum
+  end
+  helper_method :order_subtotal_cents
+
 end
