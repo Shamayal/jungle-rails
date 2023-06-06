@@ -1,2 +1,23 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+<section>
+  <header class="page-header">
+    <h1>Admin &raquo; Dashboard</h1>
+  </header>
+
+  <div class="my-5">
+    <ul class="list-group" style="max-width: 300px;">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Number of Products
+        <span class="badge bg-primary rounded-pill"><%= @products_count %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Number of Categories
+        <span class="badge bg-primary rounded-pill"><%= @categories_count %></span>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+    <%= link_to "Admin » All Products", admin_products_path, class: 'btn btn-lg btn-primary' %>
+  </div>
+</section>
