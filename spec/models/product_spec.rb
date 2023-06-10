@@ -10,14 +10,14 @@ RSpec.describe Product, type: :model do
   describe 'Validations' do
 
     it 'should save a new product with all 4 required fields present' do
-      @product = Product.new(name: 'Hibiscus', price: '60', quantity: 2, category: @category)
+      @product = Product.new(name: 'Hibiscus', price_cents: '60', quantity: 2, category: @category)
       @product.save
 
       expect(@product.save).to be true
     end
 
     it 'should show an error if the name is not set' do
-      @product = Product.new(name: nil, price: '60', quantity: 2, category: @category)
+      @product = Product.new(name: nil, price_cents: '60', quantity: 2, category: @category)
       @product.save
 
       expect(@product.errors.full_messages).to include("Name can't be blank")
@@ -31,14 +31,14 @@ RSpec.describe Product, type: :model do
     end
       
     it 'should show an error if the quantity is not set' do
-      @product = Product.new(name: 'Hibiscus', price: '60', quantity: nil, category: @category)
+      @product = Product.new(name: 'Hibiscus', price_cents: '60', quantity: nil, category: @category)
       @product.save
   
-      expect(@product.errors[:quantity]).to_not be_empty
+      expect(@product.errors.full_messages).to include("Quantity can't be blank")
     end
   
     it 'should show an error if the category is not set' do
-      @product = Product.new(name: 'Hibiscus', price: '60', quantity: 2, category: nil)
+      @product = Product.new(name: 'Hibiscus', price_cents: '60', quantity: 2, category: nil)
       @product.save
   
       expect(@product.errors.full_messages).to include("Category can't be blank")
